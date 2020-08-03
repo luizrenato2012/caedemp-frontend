@@ -2,7 +2,6 @@
 export class CnpjValidator {
 
   static isValido(cnpj): boolean {
-    console.log('validando');
     cnpj = cnpj.replace(/[^\d]+/g, '');
 
     if (!cnpj || cnpj.length != 14) {

@@ -41,7 +41,6 @@ export class CadastroComponent implements OnInit {
   private initEmpresa() {
     this.empresaEdicao =
       this.activatedRoute.snapshot.data.empresaEdicao || null;
-    console.log(`{Empresa edicao ${JSON.stringify(this.empresaEdicao)}`);
   }
 
   private initValues() {
@@ -110,12 +109,10 @@ export class CadastroComponent implements OnInit {
   }
 
   initMatriz() {
-    console.log('Iniciando a matriz');
     this.listaMatriz = this.activatedRoute.snapshot.data.listaMatriz;
   }
 
   onSave() {
-    console.log('Gravando');
     const cnpj = this.formEmpresa.get('cnpj').value;
     if (!CnpjValidator.isValido(cnpj)) {
       this.showMensagemErro('CNPJ inválido.');
@@ -168,7 +165,6 @@ export class CadastroComponent implements OnInit {
     const NOT_FOUND = 404;
     this.hideMensagem();
     this.deleteEndereco();
-    console.log('Busca cep');
     const cep = this.formEmpresa.get('cep').value;
     if (!cep) {
       console.log('Digite um CEP válido');
@@ -224,20 +220,16 @@ export class CadastroComponent implements OnInit {
   }
 
   onListaMatriz() {
-    console.log('Listando matrizes');
     this.empresaService.listaMatriz()
       .subscribe((response: Empresa[]) => {
-        console.log(`${JSON.stringify(response)}`);
         let matrizes = response.map(empresa => {
           return { id: empresa.id, nome: empresa.nome }
         });
-        console.log(`${JSON.stringify(matrizes)}`);
 
       }, error => console.error(error));
   }
 
   setMatriz(id) {
-    console.log('setando matriz');
     event.preventDefault();
     this.idMatrizSelecionada = id;
     this.formEmpresa.get('idMatriz').setValue(id);
