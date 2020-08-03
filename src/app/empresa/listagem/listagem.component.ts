@@ -77,7 +77,7 @@ export class ListagemComponent implements OnInit {
         this.onFind();
       },
         error => {
-          console.log(error);
+          console.error(error);
           this.showMessage('Registro exxcluído com sucesso', 'error');
         });
   }
