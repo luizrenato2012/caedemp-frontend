@@ -1,0 +1,124 @@
+<form [formGroup]="formEmpresa" (ngSubmit)="onSave()">
+  <p-panel>
+    <p-header>
+      Formulário para cadastro
+    </p-header>
+
+    <div class="grid-container">
+      <label id="lbl-cnpj">CNPJ<span class="required">*</span></label>
+      <div id="edt-cnpj">
+        <!-- <input type="text" pInputText formControlName="cnpj"> 50.486.157/0001-47  -->
+        <p-inputMask mask="99.999.999/9999-99" formControlName="cnpj" unmask="true"></p-inputMask>
+      </div>
+
+      <label id="lbl-tipo">Tipo Empresa<span class="required">*</span></label>
+      <div id="edt-tipo">
+        <p-dropdown [options]=" tiposEmpresa" formControlName="tipo" id="cbx-tipo">
+        </p-dropdown>
+      </div>
+
+      <!-- nome empresa razao social -->
+      <label id="lbl-nome">Nome da empresa<span class="required">*</span></label>
+      <div id="edt-nome">
+        <input type="text" pInputText formControlName="nome" maxlength="50">
+      </div>
+
+      <label id="lbl-razao-social">Razão Social<span class="required">*</span></label>
+      <div id="edt-razao-social">
+        <input type="text" pInputText formControlName="razaoSocial" maxlength="40">
+      </div>
+
+      <!-- contato email -->
+      <label id="lbl-contato">Contato<span class="required">*</span></label>
+      <div id="edt-contato">
+        <input type="text" pInputText formControlName="contato" maxlength="40">
+      </div>
+
+      <label id="lbl-email">Email<span class="required">*</span></label>
+      <div id="edt-email">
+        <input type="text" pInputText formControlName="email" maxlength="40">
+        <p class="error-validation" *ngIf="email.dirty && email.errors?.pattern">
+          O campo email está inválido</p>
+      </div>
+
+      <!-- cep estado -->
+      <label id="lbl-cep">CEP<span class="required">*</span></label>
+      <div id="edt-cep">
+        <p-inputMask mask="99.999-999" formControlName="cep" unmask="true"></p-inputMask>
+      </div>
+      <button pButton type="button" (click)="onFindCep()" id="btn-cep">Busca CEP</button>
+
+      <label id="lbl-estado">Estado<span class="required">*</span></label>
+      <div id="edt-estado">
+        <input type="text" pInputText formControlName="estado" maxlength="40">
+      </div>
+
+      <!-- Bairro Cidade-->
+      <label id="lbl-bairro">Bairro<span class="required">*</span></label>
+      <div id="edt-bairro">
+        <input type="text" pInputText formControlName="bairro" maxlength="40">
+      </div>
+
+      <label id="lbl-cidade">Cidade<span class="required">*</span></label>
+      <div id="edt-cidade">
+        <input type="text" pInputText formControlName="cidade" maxlength="40">
+      </div>
+
+      <!-- Logradouro Complemento -->
+      <label id="lbl-logradouro">Logradouro<span class="required">*</span></label>
+      <div id="edt-logradouro">
+        <input type="text" pInputText formControlName="logradouro" maxlength="40">
+      </div>
+
+      <label id="lbl-complemento">Complemento</label>
+      <div id="edt-complemento">
+        <input type="text" pInputText formControlName="complemento">
+      </div>
+
+    </div>
+
+  </p-panel>
+
+  <div class="p-grid" style="margin-left: 5px; margin-top: 3px">
+    <div class="p-col-6">
+      <div>
+        <button pButton type="button" routerLink="/listagem" style="width: 60%; margin-left: 40%"
+          label="Lista de Empresas"></button>
+      </div>
+    </div>
+
+    <div class="p-col-6">
+      <div>
+        <button pButton type="submit" style="width: 60%;" label="Salvar"></button>
+      </div>
+    </div>
+  </div>
+  <!-- {{formEmpresa.value | json}} <br> -->
+</form>
+
+
+<p-dialog header="Lista de Empresas Matriz" [(visible)]="isShowDialog" id="dlg-matriz" [style]="{width: '50vw'}"
+  closable="false">
+  Selecione uma matriz
+  <p-table [value]="listaMatriz" id="tbl-matriz" [paginator]="true" rows="5">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Ação</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-matriz>
+      <tr>
+        <td>{{matriz.id}}</td>
+        <td>{{matriz.nome}}</td>
+        <td><a (click)="setMatriz(matriz.id)">Escolhe</a> </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <div id="div-dlg-button">
+    <button type="button" pButton (click)="closeDialog()" id="btn-fecha">Fecha</button>
+  </div>
+</p-dialog>
+
+<p-messages [(value)]="mensagens"></p-messages>

@@ -1,0 +1,53 @@
+<form [formGroup]="formPesquisa" (ngSubmit)="onFind()">
+  <p-panel>
+    <p-header>
+      Formulário para cadastro
+    </p-header>
+    Empresas Cadastradas
+    <div class="grid-container">
+
+      <label id="lbl-cnpj">CNPJ</label>
+      <div id="edt-cnpj">
+        <!-- <input type="text" pInputText formControlName="cnpj"> 50.486.157/0001-47  -->
+        <p-inputMask mask="99.999.999/9999-99" formControlName="cnpj" unmask="true"></p-inputMask>
+      </div>
+
+      <label id="lbl-nome">Nome da empresa</label>
+      <div id="edt-nome">
+        <input type="text" pInputText formControlName="nome" maxlength="50">
+      </div>
+
+      <label id="lbl-tipo">Tipo Empresa</label>
+      <div id="edt-tipo">
+        <p-dropdown [options]=" tiposEmpresa" formControlName="tipo" id="cbx-tipo">
+        </p-dropdown>
+      </div>
+
+      <button pButton type="button" (click)="onAdd()" label="Novo Cadastro" id="btn-cadastro"></button>
+      <button pButton type="submit" label="Pesquisar" id="btn-pesquisa"></button>
+
+      <p-table [value]="registros" id="tbl-empresa" [paginator]="true" rows="5">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>Açoes</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-registro>
+          <tr>
+            <td> {{registro.id}}</td>
+            <td>{{registro.nome}}</td>
+            <td>{{registro.cnpj}}</td>
+            <td><a (click)='onEditar(registro)'>Editar</a> - <a (click)="onDelete(registro.id)">Excluir</a></td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <label id="lbl-total">Qtd Registros: {{total}}</label>
+    </div>
+    <p-toast></p-toast>
+    <p-confirmDialog [transitionOptions]="'0ms'" acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
+  </p-panel>
+</form>

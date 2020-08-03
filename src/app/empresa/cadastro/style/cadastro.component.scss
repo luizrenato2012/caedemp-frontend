@@ -1,0 +1,32 @@
+@use 'obrigatorio.scss';
+@use 'grid-componentes';
+
+label {
+  font-family: Open Sans,Helvetica Neue,sans-serif;
+}
+
+
+.error-validation {
+  color:  #ff0000;
+}
+
+p {
+  font-size: 90%;
+}
+
+#div-dlg-button {
+    margin: 5px;
+    padding: 3px;
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 1fr 1fr ;
+    grid-template-rows: 5vh ;
+}
+  
+
+#btn-fecha {
+  margin-top: 5px;
+  width: 50%;
+  height: 90%;
+  grid-column: 2/2; 
+}

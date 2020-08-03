@@ -1,0 +1,94 @@
+<!-- <div class="grid-container">
+
+  <label id="div-1">Numero</label>
+
+  <div id="div-2" style="display: flex;flex-direction: column;">
+    <input type="text" name="" id="">
+  </div>
+
+  <label id="div-3">Nome</label>
+
+  <div id="div-4" style="display: flex;flex-direction: column;">
+    <input type="text" name="" id="">
+  </div>
+
+  <label id="div-5">Endereço</label>
+
+  <div id="div-6" style="display: flex;flex-direction: column;">
+    <input type="text" name="" id="">
+    <div *ngIf="isVisible">Prrencha o campo</div>
+  </div>
+
+</div> -->
+
+<div class="grid-container">
+
+  <label id="lbl-cnpj">CNPJ<span class="required">*</span></label>
+  <div id="edt-cnpj">
+    <input type="text" id="" pInputText>
+  </div>
+
+  <label id="lbl-tipo">Tipo Empresa<span class="required">*</span></label>
+  <div id="edt-tipo">
+    <p-dropdown [options]=" tiposEmpresa" formControlName="tipoEmpresa" id="cbx-tipo">
+    </p-dropdown>
+  </div>
+
+  <!-- nome empresa razao social -->
+  <label id="lbl-nome">Nome da empresa<span class="required">*</span></label>
+  <div id="edt-nome">
+    <input type="text" id="" pInputText>
+  </div>
+
+  <label id="lbl-razao-social">Razão Social<span class="required">*</span></label>
+  <div id="edt-razao-social">
+    <input type="text" pInputText>
+  </div>
+
+  <!-- contato email -->
+  <label id="lbl-contato">Contato<span class="required">*</span></label>
+  <div id="edt-contato">
+    <input type="text" id="" pInputText>
+  </div>
+
+  <label id="lbl-email">Email<span class="required">*</span></label>
+  <div id="edt-email">
+    <input type="text" pInputText>
+  </div>
+
+  <!-- cep estado -->
+  <label id="lbl-cep">CEP<span class="required">*</span></label>
+  <div id="edt-cep">
+    <input type="text" id="" pInputText>
+  </div>
+  <button pButton id="btn-cep">Busca CEP</button>
+
+  <label id="lbl-estado">Estado<span class="required">*</span></label>
+  <div id="edt-estado">
+    <input type="text" pInputText>
+  </div>
+
+  <!-- Bairro Cidade-->
+  <label id="lbl-bairro">Bairro<span class="required">*</span></label>
+  <div id="edt-bairro">
+    <input type="text" id="" pInputText>
+  </div>
+
+  <label id="lbl-cidade">Cidade<span class="required">*</span></label>
+  <div id="edt-cidade">
+    <input type="text" pInputText>
+  </div>
+
+  <!-- Logradouro Complemento -->
+  <label id="lbl-logradouro">Logradouro<span class="required">*</span></label>
+  <div id="edt-logradouro">
+    <input type="text" id="" pInputText>
+  </div>
+
+  <label id="lbl-complemento">Complemento<span class="required">*</span></label>
+  <div id="edt-complemento">
+    <input type="text" pInputText>
+  </div>
+
+</div>
+<!-- <button (click)="isVisible = !isVisible">Muda</button> -->

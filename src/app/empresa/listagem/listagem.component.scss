@@ -1,0 +1,58 @@
+.grid-container{
+  margin: 5px;
+  // border: 1px red solid;
+  padding: 3px;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 8vh 8vh 24vh 8vh 8vh;
+}
+
+#lbl-cnpj {
+  grid-column: 1/1; 
+}
+
+#edt-cnpj {
+  grid-column: 2/2; 
+  display: flex;
+  flex-direction: column;
+}
+
+#lbl-nome {
+  grid-column: 3/3;
+}
+
+#edt-nome {
+  grid-column: 4/6;
+  display: flex;
+  flex-direction: column;
+}
+
+#lbl-tipo {
+  grid-column: 6/7; 
+}
+
+#edt-tipo {
+  grid-column: 7/7; 
+  display: flex;
+  flex-direction: column;
+}
+
+#btn-cadastro {
+  grid-column: 3/3;
+  height: 70%;
+}
+
+#btn-pesquisa {
+  grid-column: 4/4;
+  height: 70%;
+}
+
+#tbl-empresa {
+  grid-column: 1/7;
+}
+
+#lbl-total {
+  grid-column: 1/1;
+  margin-top: 10px;
+}

@@ -1,0 +1,147 @@
+.grid-container{
+  margin: 5px;
+  // border: 1px red solid;
+  padding: 3px;
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 8vh 8vh 8vh 8vh 8vh;
+}
+
+#lbl-cnpj {
+  grid-column: 1/2; 
+}
+
+#edt-cnpj {
+  grid-column: 2/3; 
+  display: flex;
+  flex-direction: column;
+}
+
+#lbl-tipo {
+  grid-column: 4/4; 
+}
+
+#edt-tipo {
+  grid-column: 5/8; 
+  display: flex;
+  flex-direction: column;
+}
+
+#lbl-nome {
+  grid-column: 1/2;
+}
+
+#edt-nome {
+  grid-column: 2/4;
+  display: flex;
+  flex-direction: column;
+}
+
+#lbl-razao-social {
+  grid-column: 4/4;
+}
+
+#edt-razao-social {
+  grid-column: 5/8;
+  display: flex;
+  flex-direction: column;
+}
+
+/** contato email */
+#lbl-contato {
+  grid-column: 1/2;
+}
+
+#edt-contato {
+  grid-column: 2/4;
+  display: flex;
+  flex-direction: column;
+}
+
+#lbl-email {
+  grid-column: 4/4;
+}
+
+#edt-email {
+  grid-column: 5/8;
+  display: flex;
+  flex-direction: column;
+}
+
+/** CEP estado */
+#lbl-cep {
+  grid-column: 1/2;
+}
+
+#edt-cep {
+  grid-column: 2/2;
+  display: flex;
+  flex-direction: column;
+}
+
+#btn-cep {
+  border: 1px black solid;
+  height: 65%;
+  grid-column: 3/3;
+}
+
+#lbl-estado {
+  grid-column: 4/4;
+}
+
+#edt-estado {
+  grid-column: 5/8;
+  display: flex;
+  flex-direction: column;
+}
+
+/** bairro cidade */
+#lbl-bairro {
+  grid-column: 1/2;
+}
+
+#edt-bairro {
+  grid-column: 2/4;
+  display: flex;
+  flex-direction: column;
+}
+
+#lbl-cidade {
+  grid-column: 4/4;
+}
+
+#edt-cidade {
+  grid-column: 5/8;
+  display: flex;
+  flex-direction: column;
+}
+
+/** logradouro complemento */
+#lbl-logradouro {
+  grid-column: 1/2;
+}
+
+#edt-logradouro {
+  grid-column: 2/4;
+  display: flex;
+  flex-direction: column;
+}
+
+#lbl-complemento {
+  grid-column: 4/4;
+}
+
+#edt-complemento {
+  grid-column: 5/8;
+  display: flex;
+  flex-direction: column;
+}
+
+// #btn-cep {
+//   height: 79%;
+// }
+
+#cbx-tipo {
+  display: grid;
+}
