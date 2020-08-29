@@ -15,7 +15,7 @@ export class ListagemComponent implements OnInit {
   formPesquisa: FormGroup;
   tiposEmpresa: any[];
   registros: Registro[];
-  total: number;
+  totalRegistros: number;
 
   constructor(private formBuilder: FormBuilder,
     private empresaService: EmpresaService,
@@ -26,13 +26,7 @@ export class ListagemComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.tiposEmpresa = [
-      { label: 'Todos', value: '' },
-      { label: 'Filial', value: 'FILIAL' },
-      { label: 'Matriz', value: 'MATRIZ' }
-    ];
-    this.registros = [];
-    this.total = this.registros.length;
+    this.initRows();
   }
 
   private initForm() {
@@ -41,17 +35,27 @@ export class ListagemComponent implements OnInit {
       'tipo': ['', [Validators.maxLength(10)]],
       'nome': [''],
     });
+    this.tiposEmpresa = [
+      { label: 'Todos', value: '' },
+      { label: 'Filial', value: 'FILIAL' },
+      { label: 'Matriz', value: 'MATRIZ' }
+    ];
+  }
+
+  private initRows() {
+    this.registros = [];
+    this.totalRegistros = this.registros.length;
   }
 
   onFind() {
-    let cnpj = this.formPesquisa.get('cnpj').value;
-    let nome = this.formPesquisa.get('nome').value;
-    let tipo = this.formPesquisa.get('tipo').value;
-    this.empresaService.pesquisa(cnpj, nome, tipo)
+    let argumentos = this.formPesquisa.getRawValue();
+    this.empresaService.pesquisa(argumentos)
       .subscribe(response => {
         this.registros = response as Registro[];
+        this.totalRegistros = this.registros.length;
       }, error => {
         console.error(error);
+        this.showMessage('Erro ao pesquisar', 'error');
       })
   }
 
