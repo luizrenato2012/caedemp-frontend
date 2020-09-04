@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map, tap } from 'rxjs/operators';
 import { Empresa } from './empresa';
 import { Observable } from 'rxjs';
 import { query } from '@angular/animations';
+import { FiltroEmpresa } from './listagem/filtro-empresa';
 
 const URL = 'http://localhost:8080/empresas';
 @Injectable({
@@ -21,28 +22,28 @@ export class EmpresaService {
     return this.httpClient.post(URL, empresa);
   }
 
-  pesquisa(argumentos: any) {
-    return this.httpClient.get(URL + this.getQueryString(argumentos));
+  pesquisa(filtro: FiltroEmpresa) {
+    const queryString = this.getQueryString(filtro);
+    return this.httpClient.get(`${URL}?${queryString}`)
+      .pipe(
+        map(({ content, totalElements }: any) => {
+          return { content, totalElements }
+        })
+      );
   }
 
-  private getQueryString(argumentos: any) {
-    let queryString = '';
-    let keysValidas = Object.keys(argumentos).filter(key => argumentos[key] !== '');
-    if (!keysValidas || keysValidas.length == 0) {
-      return "";
-    }
-    keysValidas.forEach(key => queryString += `${key}=` + argumentos[key] + '&');
-    if (keysValidas.length == 1) {
-      queryString = queryString.replace('&', '');
-    } else {
-      queryString = queryString.substr(0, queryString.length - 1);
-    }
-    queryString = `?${queryString}`;
-    return queryString;
+  private getQueryString(filtro: FiltroEmpresa) {
+    let params = new HttpParams();
+    let keysValidas = Object.keys(filtro).filter(key => filtro[key] !== '');
+    keysValidas.forEach(key => params = params.set(key, filtro[key]));
+    return params.toString();
   }
 
   listaMatriz(): Observable<Empresa[]> {
-    return this.httpClient.get<Empresa[]>(`${URL} ? tipo = matriz`);
+    return this.httpClient.get<Empresa[]>(`${URL}?tipo=matriz`)
+      .pipe(
+        map((response: any) => response.content)
+      );
   }
 
   delete(id: number) {

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmpresaService } from '../empresa-service';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService, LazyLoadEvent } from 'primeng/api';
 import { Empresa } from '../empresa';
 import { Router } from '@angular/router';
+import { FiltroEmpresa } from './filtro-empresa';
 
 @Component({
   selector: 'app-listagem',
@@ -12,13 +13,12 @@ import { Router } from '@angular/router';
 })
 export class ListagemComponent implements OnInit {
 
-  formPesquisa: FormGroup;
   tiposEmpresa: any[];
   registros: Registro[];
   totalRegistros: number;
+  filtroEmpresa: FiltroEmpresa;
 
-  constructor(private formBuilder: FormBuilder,
-    private empresaService: EmpresaService,
+  constructor(private empresaService: EmpresaService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router) {
@@ -30,11 +30,7 @@ export class ListagemComponent implements OnInit {
   }
 
   private initForm() {
-    this.formPesquisa = this.formBuilder.group({
-      'cnpj': ['', [Validators.maxLength(14)]],
-      'tipo': ['', [Validators.maxLength(10)]],
-      'nome': [''],
-    });
+    this.filtroEmpresa = new FiltroEmpresa();
     this.tiposEmpresa = [
       { label: 'Todos', value: '' },
       { label: 'Filial', value: 'FILIAL' },
@@ -48,11 +44,10 @@ export class ListagemComponent implements OnInit {
   }
 
   onFind() {
-    let argumentos = this.formPesquisa.getRawValue();
-    this.empresaService.pesquisa(argumentos)
-      .subscribe(response => {
-        this.registros = response as Registro[];
-        this.totalRegistros = this.registros.length;
+    this.empresaService.pesquisa(this.filtroEmpresa)
+      .subscribe(({ content, totalElements }: any) => {
+        this.registros = content as Registro[];
+        this.totalRegistros = totalElements;
       }, error => {
         console.error(error);
         this.showMessage('Erro ao pesquisar', 'error');
@@ -102,9 +97,13 @@ export class ListagemComponent implements OnInit {
       summary: 'Listagem de Empresasa', detail: mensagem
     });
   }
+
+  onChangePage(event: LazyLoadEvent) {
+    const paginaAtual = event.first / event.rows;
+    this.filtroEmpresa.page = paginaAtual;
+    this.onFind();
+  }
 }
-
-
 
 export interface Registro {
   id: number;
