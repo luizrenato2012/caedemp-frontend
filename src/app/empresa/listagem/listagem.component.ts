@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmpresaService } from '../empresa-service';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService, LazyLoadEvent } from 'primeng/api';
 import { Empresa } from '../empresa';
 import { Router } from '@angular/router';
+import { FiltroEmpresa } from './filtro-empresa';
 
 @Component({
   selector: 'app-listagem',
@@ -12,13 +13,12 @@ import { Router } from '@angular/router';
 })
 export class ListagemComponent implements OnInit {
 
-  formPesquisa: FormGroup;
   tiposEmpresa: any[];
   registros: Registro[];
-  total: number;
+  totalRegistros: number;
+  filtroEmpresa: FiltroEmpresa;
 
-  constructor(private formBuilder: FormBuilder,
-    private empresaService: EmpresaService,
+  constructor(private empresaService: EmpresaService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private router: Router) {
@@ -26,32 +26,31 @@ export class ListagemComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.initRows();
+  }
+
+  private initForm() {
+    this.filtroEmpresa = new FiltroEmpresa();
     this.tiposEmpresa = [
       { label: 'Todos', value: '' },
       { label: 'Filial', value: 'FILIAL' },
       { label: 'Matriz', value: 'MATRIZ' }
     ];
-    this.registros = [];
-    this.total = this.registros.length;
   }
 
-  private initForm() {
-    this.formPesquisa = this.formBuilder.group({
-      'cnpj': ['', [Validators.maxLength(14)]],
-      'tipo': ['', [Validators.maxLength(10)]],
-      'nome': [''],
-    });
+  private initRows() {
+    this.registros = [];
+    this.totalRegistros = this.registros.length;
   }
 
   onFind() {
-    let cnpj = this.formPesquisa.get('cnpj').value;
-    let nome = this.formPesquisa.get('nome').value;
-    let tipo = this.formPesquisa.get('tipo').value;
-    this.empresaService.pesquisa(cnpj, nome, tipo)
-      .subscribe(response => {
-        this.registros = response as Registro[];
+    this.empresaService.pesquisa(this.filtroEmpresa)
+      .subscribe(({ content, totalElements }: any) => {
+        this.registros = content as Registro[];
+        this.totalRegistros = totalElements;
       }, error => {
         console.error(error);
+        this.showMessage('Erro ao pesquisar', 'error');
       })
   }
 
@@ -98,9 +97,13 @@ export class ListagemComponent implements OnInit {
       summary: 'Listagem de Empresasa', detail: mensagem
     });
   }
+
+  onChangePage(event: LazyLoadEvent) {
+    const paginaAtual = event.first / event.rows;
+    this.filtroEmpresa.page = paginaAtual;
+    this.onFind();
+  }
 }
-
-
 
 export interface Registro {
   id: number;

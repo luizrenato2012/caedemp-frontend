@@ -147,7 +147,22 @@ export class CadastroComponent implements OnInit {
       estado: this.formEmpresa.get('estado').value,
       cidade: this.formEmpresa.get('cidade').value
     }
+    // const retorno2 = this.formEmpresa.getRawValue();
+    // const retorno = {
+    //   'cnpj': this.formEmpresa.get('cnpj').value,
+    //   'contato': this.formEmpresa.get('contato').value,
+    //   'email': this.formEmpresa.get('email').value,
+    //   'nome': this.formEmpresa.get('nome').value,
+    //   'razaoSocial': this.formEmpresa.get('razaoSocial').value,
+    //   'tipo': this.formEmpresa.get('tipo').value,
+    //   'idMatriz': this.formEmpresa.get('idMatriz').value,
+    //   'endereco': endereco,
+    // };
+    // console.log(`Retorno : ${JSON.stringify(retorno)}`);
+    // console.log(`Retorno2 : ${JSON.stringify(retorno2)}`);
+    // return retorno;
     return {
+      'id' : this.formEmpresa.get('id').value,
       'cnpj': this.formEmpresa.get('cnpj').value,
       'contato': this.formEmpresa.get('contato').value,
       'email': this.formEmpresa.get('email').value,
@@ -156,7 +171,6 @@ export class CadastroComponent implements OnInit {
       'tipo': this.formEmpresa.get('tipo').value,
       'idMatriz': this.formEmpresa.get('idMatriz').value,
       'endereco': endereco,
-
     }
 
   }

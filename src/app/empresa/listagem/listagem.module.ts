@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -22,7 +22,8 @@ import { ConfirmationService } from 'primeng/api';
   imports: [
     CommonModule,
     ConfirmDialogModule,
-    ReactiveFormsModule,
+    FormsModule,
+    // ReactiveFormsModule,
     ButtonModule,
     DropdownModule,
     PanelModule,
